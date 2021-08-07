@@ -21,6 +21,7 @@ jobs:
     - name: Set up JDK 16
       uses: actions/setup-java@v2
       with:
+        java-version: '16'
         heroku_api_key: ${{secrets.GITHUB_TOKEN}}
         heroku_app_name: "ea-airline-reservation-project"
         heroku_email: "atbedaso@gmail.com"
