@@ -7,7 +7,10 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+    
+env:
+  GITHUB_TOKEN: 0cb42428-ad24-4e3a-9b35-b6ef0bda8abf
+  
 jobs:
   build:
 
@@ -18,6 +21,6 @@ jobs:
     - name: Set up JDK 16
       uses: actions/setup-java@v2
       with:
-        heroku_api_key: ${{secrets.0cb42428-ad24-4e3a-9b35-b6ef0bda8abf}}
+        heroku_api_key: ${{secrets.GITHUB_TOKEN }}
         heroku_app_name: "ea-airline-reservation-project"
         heroku_email: "atbedaso@gmail.com"
