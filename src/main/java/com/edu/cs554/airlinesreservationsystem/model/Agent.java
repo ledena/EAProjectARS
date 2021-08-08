@@ -1,4 +1,11 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
-public class Agent {
+import lombok.Data;
+
+import javax.persistence.Entity;
+
+@Entity
+@Data
+public class Agent extends Person{
+
 }
