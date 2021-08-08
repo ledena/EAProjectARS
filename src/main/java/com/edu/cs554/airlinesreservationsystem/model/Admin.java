@@ -1,4 +1,10 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
-public class Admin {
+import lombok.Data;
+
+import javax.persistence.Entity;
+
+@Entity
+@Data
+public class Admin extends Person{
 }

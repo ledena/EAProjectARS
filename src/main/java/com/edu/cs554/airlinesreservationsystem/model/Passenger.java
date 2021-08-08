@@ -1,4 +1,14 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
-public class Passenger {
+import lombok.Data;
+
+import javax.persistence.Entity;
+import java.time.LocalDate;
+
+@Entity
+@Data
+public class Passenger extends Person{
+
+    private LocalDate dateOfBirth;
+
 }
