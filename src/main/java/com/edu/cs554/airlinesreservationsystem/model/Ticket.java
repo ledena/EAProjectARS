@@ -11,7 +11,7 @@ public class Ticket {
     @Id
     @GeneratedValue
     private int id;
-    @Column(name="ticket_number")
+    @Column(name="ticket_number", length = 20)
     private Long number;
     private String reservationCode;
     private LocalDate flightDate;

@@ -13,19 +13,19 @@ public class Reservation {
     @Id
     @GeneratedValue
     private int id;
-    private LocalDate reservationTime;
+    @Column(name="reservationCode", length = 6)
     private String reservationCode;
     @ManyToOne
-    private User user;
+    private Passenger passenger;
+    @ManyToMany(mappedBy = "reservations")
+    private List<Flight> flights=new ArrayList<>();
+    private LocalDate reservationTime;
+    @ManyToOne
+    private User reservedBy;
     @OneToMany(mappedBy = "reservation")
     private List<Ticket> tickets=new ArrayList<>();
-    @ManyToOne
-    private Passenger passenger;
     @Enumerated(EnumType.STRING)
     private Status status;
-//    @ManyToMany(mappedBy = "reservations")
-//    private List<Flight> flights=new ArrayList<>();
-    /////// add flight reference
 
 
 }

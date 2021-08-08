@@ -13,17 +13,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SecondaryTable(name="airline_history",
-        pkJoinColumns=@PrimaryKeyJoinColumn(name="history"))
-public class Airlines {
+@SecondaryTable(name="history")
+public class Airline {
 
     @Id
     @GeneratedValue
     private long id;
     private String code;
     private String name;
-
-
+    @Column(table="history", length = 2000)
     private String history;
 
 
