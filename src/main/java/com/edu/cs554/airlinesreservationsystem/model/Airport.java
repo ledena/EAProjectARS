@@ -10,8 +10,9 @@ public class Airport {
     @Id
     @GeneratedValue
     private int id;
-    private String code;
     @Column(name="code", length = 3)
+    private String code;
+    
     private String name;
     @Embedded
     private Address address;
