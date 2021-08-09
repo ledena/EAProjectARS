@@ -18,12 +18,8 @@ public class Passenger extends Person{
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate dateOfBirth;
 
-    @Embedded
-    private Address residenceAddress;
-
     public Passenger(String firstName, String lastName, LocalDate dateOfBirth, Address residenceAddress, User user) {
-        super(firstName, lastName, user);
+        super(firstName, lastName, residenceAddress, user);
         this.dateOfBirth = dateOfBirth;
-        this.residenceAddress = residenceAddress;
     }
 }
