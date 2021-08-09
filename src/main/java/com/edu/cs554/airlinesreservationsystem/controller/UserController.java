@@ -31,6 +31,7 @@ public class UserController{
 
         if (token == null) {
 
+            responseBody.put("success", false);
             responseBody.put("message", "Authentication invalid");
             httpStatus = HttpStatus.BAD_REQUEST;
 
