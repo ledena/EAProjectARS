@@ -1,6 +1,6 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,9 +9,12 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue
+    @Setter(AccessLevel.PRIVATE)
     private int id;
     @Column(name="reservationCode", length = 6)
     private String reservationCode;
