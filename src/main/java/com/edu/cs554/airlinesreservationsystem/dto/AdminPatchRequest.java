@@ -17,6 +17,4 @@ public class AdminPatchRequest {
     private final long passengerId;
     private final String firstName;
     private final String lastName;
-    @JsonFormat(pattern = "YYYY-MM-dd")
-    private final LocalDate dateOfBirth;
 }
