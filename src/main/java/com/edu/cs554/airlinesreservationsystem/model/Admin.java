@@ -8,13 +8,11 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Admin extends Person{
 
-    public Admin(String firstName, String lastName, User user) {
-        super(firstName, lastName, user);
-    }
-
-    public Admin() {
+    public Admin(String firstName, String lastName, Address residenceAddress, User user) {
+        super(firstName, lastName, residenceAddress, user);
     }
 
 }

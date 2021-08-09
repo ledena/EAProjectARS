@@ -19,13 +19,18 @@ public abstract class Person {
     private String firstName;
     private String lastName;
 
+    @Embedded
+    private Address residenceAddress;
+
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private User user;
 
-    public Person(String firstName, String lastName, User user) {
+    public Person(String firstName, String lastName, Address residenceAddress, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.residenceAddress = residenceAddress;
         this.user = user;
     }
+
 }
