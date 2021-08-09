@@ -2,7 +2,7 @@ package com.edu.cs554.airlinesreservationsystem.service;
 
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerRegistrationRequest;
 import com.edu.cs554.airlinesreservationsystem.model.*;
-import com.edu.cs554.airlinesreservationsystem.repositories.PassengerRepository;
+import com.edu.cs554.airlinesreservationsystem.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

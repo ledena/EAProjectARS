@@ -1,4 +1,4 @@
-package com.edu.cs554.airlinesreservationsystem.controllers;
+package com.edu.cs554.airlinesreservationsystem.controller;
 
 import com.edu.cs554.airlinesreservationsystem.dto.AuthRequest;
 import com.edu.cs554.airlinesreservationsystem.model.User;

@@ -1,7 +1,7 @@
 package com.edu.cs554.airlinesreservationsystem.util;
 
 import com.edu.cs554.airlinesreservationsystem.model.User;
-import com.edu.cs554.airlinesreservationsystem.repositories.UserRepository;
+import com.edu.cs554.airlinesreservationsystem.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

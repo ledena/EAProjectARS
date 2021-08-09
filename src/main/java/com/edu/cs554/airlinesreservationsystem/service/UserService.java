@@ -1,22 +1,9 @@
 package com.edu.cs554.airlinesreservationsystem.service;
 
-import com.edu.cs554.airlinesreservationsystem.dto.AuthRequest;
-import com.edu.cs554.airlinesreservationsystem.dto.RegistrationRequest;
-import com.edu.cs554.airlinesreservationsystem.model.Passenger;
-import com.edu.cs554.airlinesreservationsystem.model.Person;
-import com.edu.cs554.airlinesreservationsystem.model.Role;
 import com.edu.cs554.airlinesreservationsystem.model.User;
-import com.edu.cs554.airlinesreservationsystem.repositories.UserRepository;
-import com.edu.cs554.airlinesreservationsystem.util.JwtUtil;
+import com.edu.cs554.airlinesreservationsystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

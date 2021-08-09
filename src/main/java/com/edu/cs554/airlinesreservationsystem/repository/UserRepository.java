@@ -1,4 +1,4 @@
-package com.edu.cs554.airlinesreservationsystem.repositories;
+package com.edu.cs554.airlinesreservationsystem.repository;
 
 import com.edu.cs554.airlinesreservationsystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
