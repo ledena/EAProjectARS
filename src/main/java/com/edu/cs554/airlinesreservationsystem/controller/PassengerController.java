@@ -41,6 +41,7 @@ public class PassengerController {
         if (optionalPassenger.isPresent()) {
             return new ResponseEntity<>(optionalPassenger.get(), HttpStatus.OK);
         } else {
+            responseBody.put("success", false);
             responseBody.put("message", "Passenger not found");
             return new ResponseEntity<>(responseBody.toString(), HttpStatus.BAD_REQUEST);
         }
@@ -65,6 +66,7 @@ public class PassengerController {
             passenger.setResidenceAddress(passengerUpdateRequest.getResidenceAddress());
             passenger = passengerService.update(passenger);
 
+            responseBody.put("success", true);
             responseBody.put("message", "Passenger successfully updated");
             responseBody.put("passenger", passenger);
 
@@ -72,6 +74,7 @@ public class PassengerController {
 
         } else {
 
+            responseBody.put("success", false);
             responseBody.put("message", "Passenger not found");
             responseBody.put("passengerId", passengerId);
             httpStatus = HttpStatus.BAD_REQUEST;
@@ -97,6 +100,7 @@ public class PassengerController {
             passenger.setDateOfBirth(passengerPatchRequest.getDateOfBirth());
             passenger = passengerService.update(passenger);
 
+            responseBody.put("success", true);
             responseBody.put("message", "Passenger successfully updated");
             responseBody.put("passenger", passenger);
 
@@ -104,6 +108,7 @@ public class PassengerController {
 
         } else {
 
+            responseBody.put("success", false);
             responseBody.put("message", "Passenger not found");
             responseBody.put("passengerId", passengerId);
             httpStatus = HttpStatus.BAD_REQUEST;
@@ -120,11 +125,13 @@ public class PassengerController {
 
         if (passengerService.deletePassengerById(passengerId)) {
 
+            responseBody.put("success", true);
             responseBody.put("message", "Successfully deleted");
             responseBody.put("passengerId", passengerId);
 
         } else {
 
+            responseBody.put("success", false);
             responseBody.put("message", "Unable to delete: Error");
             responseBody.put("passengerId", passengerId);
             httpStatus = HttpStatus.BAD_REQUEST;
@@ -134,10 +141,9 @@ public class PassengerController {
     }
 
     // Registers or Adds passenger to DB
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person register(@RequestBody PassengerRegistrationRequest request) {
         return passengerService.register(request);
     }
-
 
 }
