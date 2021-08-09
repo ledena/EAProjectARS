@@ -1,7 +1,6 @@
 package com.edu.cs554.airlinesreservationsystem.config;
 
 import com.edu.cs554.airlinesreservationsystem.filter.JwtFilter;
-import com.edu.cs554.airlinesreservationsystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
