@@ -56,8 +56,8 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        User user = userRepository.findByUserName(username);
-        String changedUsername = user.getUserName();
+        User user = userRepository.findByUsername(username);
+        String changedUsername = user.getUsername();
         return (changedUsername.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 

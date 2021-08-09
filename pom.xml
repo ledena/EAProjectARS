@@ -81,11 +81,10 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <groupId>edu.miu.common</groupId>
+            <artifactId>common-base-service</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -98,12 +97,6 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>2.4.2</version>
         </dependency>
 
     </dependencies>

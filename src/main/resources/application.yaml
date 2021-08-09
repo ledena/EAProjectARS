@@ -2,10 +2,10 @@ spring:
   application:
     name: EAProjectARS
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=ea_course;
-    username: abditufa
-    password: P@ss4%db%
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:mysql://localhost:3306/ea_project
+    username: root
+    password: P@ss4%mysql%
+#    driverClassName: com.mysql.jdbc.Driver
     hikari:
       maximumPoolSize: 10
   jpa:
@@ -14,9 +14,10 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.SQLServer2008Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
   security:
     user:
       name: service-user
@@ -24,3 +25,7 @@ spring:
 logging:
   file:
     name: /Coding/Logging/${spring.application.name}/log
+  level:
+    org:
+      springframework:
+        web=DEBUG:
