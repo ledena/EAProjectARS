@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PassengerService {
-    public List<Passenger> findAll();
-    public Optional<Passenger> findById(long passengerId);
-    public Passenger update(Passenger passenger);
-    public boolean deletePassengerById(long passengerId);
-    public Passenger register(PassengerRegistrationRequest request);
+    Passenger create(PassengerRegistrationRequest request);
+    List<Passenger> findAll();
+    Optional<Passenger> findById(long passengerId);
+    Passenger update(Passenger passenger);
+    boolean deletePassengerById(long passengerId);
 
 }

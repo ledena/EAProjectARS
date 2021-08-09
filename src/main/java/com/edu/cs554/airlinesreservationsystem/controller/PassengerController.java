@@ -26,6 +26,12 @@ public class PassengerController {
     @Autowired
     private PassengerService passengerService;
 
+    // Registers or Adds passenger to DB
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person createPassenger(@RequestBody PassengerRegistrationRequest request) {
+        return passengerService.create(request);
+    }
+
     @GetMapping(value = { "/", "" }, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Passenger> getAllPassengers() {
         return passengerService.findAll();
@@ -138,12 +144,6 @@ public class PassengerController {
 
         }
         return new ResponseEntity<>(responseBody.toString(), httpStatus);
-    }
-
-    // Registers or Adds passenger to DB
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person register(@RequestBody PassengerRegistrationRequest request) {
-        return passengerService.register(request);
     }
 
 }

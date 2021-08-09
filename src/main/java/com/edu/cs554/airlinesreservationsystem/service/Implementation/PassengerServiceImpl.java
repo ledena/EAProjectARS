@@ -38,6 +38,7 @@ public class PassengerServiceImpl implements PassengerService {
         return passengerRepository.save(passenger);
     }
 
+    @Override
     public boolean deletePassengerById(long passengerId) {
         if(passengerRepository.existsById(passengerId)) {
             passengerRepository.deleteById(passengerId);
@@ -46,7 +47,8 @@ public class PassengerServiceImpl implements PassengerService {
             return false;
     }
 
-    public Passenger register(PassengerRegistrationRequest request) {
+    @Override
+    public Passenger create(PassengerRegistrationRequest request) {
 
         User user = new User(request.getUser().getUserName(), request.getUser().getPassword(), Role.PASSENGER);
 
