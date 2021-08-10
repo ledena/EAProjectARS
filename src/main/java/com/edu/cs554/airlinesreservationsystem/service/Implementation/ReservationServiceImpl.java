@@ -41,6 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private Mail mail;
 
+
     @Value("${email.from}")
     private String emailFrom;
 
@@ -86,8 +87,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> getReservations(int usesrId) {
-        return reservationRepository.findAllByUser(usesrId);
+    public List<Reservation> getReservations(int userId) {
+        User user= userRepository.findById(userId);
+        return reservationRepository.findAllByReservedBy(user);
     }
 
     @Override

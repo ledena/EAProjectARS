@@ -1,6 +1,7 @@
 package com.edu.cs554.airlinesreservationsystem.repository;
 
 import com.edu.cs554.airlinesreservationsystem.model.Reservation;
+import com.edu.cs554.airlinesreservationsystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +19,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     @Query("SELECT distinct f.reservations FROM Flight f JOIN  f.reservations r WHERE r.status ='CONFIRMED' and Date(f.departureTime)=Date(:date) and hour(f.departureTime)=hour(:date) and minute(departureTime)=minute(:date) ")
     Optional<List<Reservation>> getReservationsForReminder(@Param("date")LocalDateTime date);
-    public abstract List<Reservation> findAllByUser(int userId);
+    public abstract List<Reservation> findAllByReservedBy(User user);
     public abstract Reservation findReservationById(int reservationId);
 }
