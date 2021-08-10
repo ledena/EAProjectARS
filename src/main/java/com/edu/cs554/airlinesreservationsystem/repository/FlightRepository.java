@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface FlightRepository extends JpaRepository<Flight,Integer> {
+public interface FlightRepository extends JpaRepository<Flight,Long> {
 
 //    List<Flight> getAirlinesFlyingOut(Airport departureAirport);
     @Query("select airline from Flight f where f.departureAirport.code=:airportCode")
