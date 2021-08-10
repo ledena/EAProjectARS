@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping(path="/admin")
 public class AdminController {
@@ -26,6 +27,7 @@ public class AdminController {
     private AdminService adminService;
 
     // Registers or Adds admin to DB
+    @PreAuthorize("permitAll()")
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person createAdmin(@RequestBody AdminRegistrationRequest request) {
         return adminService.create(request);
