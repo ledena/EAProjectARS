@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER','ROLE_AGENT')")
 @RestController
 @RequestMapping(path="/passenger")
 public class PassengerController {
@@ -26,14 +26,15 @@ public class PassengerController {
     private PassengerService passengerService;
 
     // Registers or Adds passenger to DB
+    @PreAuthorize("permitAll()")
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person createPassenger(@RequestBody PassengerRegistrationRequest request) {
         return passengerService.create(request);
     }
 
     @GetMapping(value = { "/", "" }, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Passenger> getAllPassengers() {
-        return passengerService.findAll();
+    public ResponseEntity<?> getAllPassengers() {
+        return new ResponseEntity<>(passengerService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = { "/{passengerId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -122,6 +123,7 @@ public class PassengerController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER')")
     @DeleteMapping(value = { "/{passengerId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deletePassenger(@PathVariable long passengerId) throws JSONException {
 
