@@ -13,6 +13,6 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface AirlineRepository  extends JpaRepository<Airline, Integer> {
+public interface AirlineRepository  extends JpaRepository<Airline, Long> {
 
 }

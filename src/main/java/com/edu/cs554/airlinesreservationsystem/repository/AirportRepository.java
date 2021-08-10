@@ -12,4 +12,6 @@ public interface AirportRepository extends JpaRepository<Airport,Integer> {
     Airport getByCode(String code);
 
     Airport findAirlineByCode(String code);
+
+
 }

@@ -1,20 +1,19 @@
 package com.edu.cs554.airlinesreservationsystem.service.Implementation;
 
 import com.edu.cs554.airlinesreservationsystem.dto.EmailRequest;
-import com.edu.cs554.airlinesreservationsystem.dto.EmailResponse;
 import com.edu.cs554.airlinesreservationsystem.dto.Mail;
 import com.edu.cs554.airlinesreservationsystem.model.Admin;
 import com.edu.cs554.airlinesreservationsystem.model.Passenger;
 import com.edu.cs554.airlinesreservationsystem.model.Reservation;
+import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
+import com.edu.cs554.airlinesreservationsystem.exception.ResourceNotFoundException;
+import com.edu.cs554.airlinesreservationsystem.model.*;
+import com.edu.cs554.airlinesreservationsystem.repository.PassengerRepository;
 import com.edu.cs554.airlinesreservationsystem.repository.ReservationRepository;
+import com.edu.cs554.airlinesreservationsystem.repository.UserRepository;
 import com.edu.cs554.airlinesreservationsystem.service.ReservationService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -31,6 +30,10 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private PassengerRepository passengerRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -72,4 +75,27 @@ public class ReservationServiceImpl implements ReservationService {
 
     }
 
+    public Reservation makeReservation(Reservation reservation) {
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void cancelResesrvation(int reservationId) {
+        reservationRepository.deleteById(reservationId);
+
+    }
+
+    @Override
+    public List<Reservation> getReservations(int usesrId) {
+        return reservationRepository.findAllByUser(usesrId);
+    }
+
+    @Override
+    public Reservation getReservationById(int reservationId) {
+        return reservationRepository.findReservationById(reservationId);
+    }
+
+
 }
+
+

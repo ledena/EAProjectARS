@@ -50,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin create(AdminRegistrationRequest request) {
 
-        User user = new User(request.getUser().getUserName(), request.getUser().getPassword(), Role.AGENT);
+        User user = new User(request.getUser().getUserName(), request.getUser().getPassword(), Role.ADMIN);
 
         user = userService.encodePassword(user);
 
