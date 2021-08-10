@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private JmsTemplate jmsTemplate;
-
+   abc
     @Autowired
     private Mail mail;
 
@@ -64,7 +64,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservations.isPresent()) {
             for(Reservation reservation:reservations.get()){
                 Passenger passenger=reservation.getPassenger();
-                String message="Dear "+passenger.getFirstName()+" "+passenger.getLastName()+"\n\nYour Flight  is in 24 hours!!!\n\nThanks";
+                String message="Dear "+passenger.getFirstName()+" "+passenger.getLastName()+"\n\nYour Flight leaves in 24 hours!!!\n\nThanks";
                 EmailRequest emailRequest=new EmailRequest(emailFrom, passenger.getEmail(), message,"Flight Reservation Reminder" );
                 // Send a message with a POJO - the template reuse the message converter
                 System.out.println("Sending an email message.");
