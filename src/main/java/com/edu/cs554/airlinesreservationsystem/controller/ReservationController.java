@@ -4,6 +4,7 @@ package com.edu.cs554.airlinesreservationsystem.controller;
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerPatchRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerRegistrationRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
+import com.edu.cs554.airlinesreservationsystem.dto.ReservationUpdatePatch;
 import com.edu.cs554.airlinesreservationsystem.model.*;
 import com.edu.cs554.airlinesreservationsystem.service.LoginService;
 import com.edu.cs554.airlinesreservationsystem.service.ReservationService;
@@ -41,9 +42,16 @@ public class ReservationController {
         loggedInUser=loginService.loggedInUser();
         int userId=loggedInUser.getId();
 
-        return reservationService.getReservations(userId);
+        return reservationService.getReservations(loggedInUser);
     }
-    abcdef
+//    @GetMapping
+//    public List<Reservation> listReservations() {
+//        User loggedInUser=new User();
+//        loggedInUser=loginService.loggedInUser();
+//        int userId=loggedInUser.getId();
+//
+//        return reservationService.getReservations(userId);
+//    }
 
     @GetMapping(value = { "/listReservations" }, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getReservationsList(@PathVariable long passengerId) throws JSONException {
@@ -52,10 +60,10 @@ public class ReservationController {
 
         User loggedInUser=new User();
         loggedInUser=loginService.loggedInUser();
-        int userId=loggedInUser.getId();
+       // int userId=loggedInUser.getId();
 
 
-        List<Reservation> listReservations = reservationService.getReservations(userId);
+        List<Reservation> listReservations = reservationService.getReservations(loggedInUser);
 
         if (!listReservations.isEmpty()) {
             return new ResponseEntity<>(listReservations.get(0), HttpStatus.OK);
@@ -77,48 +85,85 @@ public class ReservationController {
 //    }
 //
 //
-//    //view and confirm reservation
+    //view and confirm reservation
+
+    @PatchMapping(value = { "/{currentReservation}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> confirmReservation(@PathVariable Reservation currentReservation,@RequestBody ReservationUpdatePatch reservationUpdatePatch) throws JSONException {
+
+
+        Reservation reservation = reservationService.getReservationById(currentReservation);
+
+        JSONObject responseBody = new JSONObject();
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        if (reservation!=null) {
+
+           Status reservationStatus= reservation.getStatus();
+
+            if(reservationStatus.equals(Status.RESERVED))
+            {
+              reservation.setStatus(Status.CONFIRMED);
+            }
+
+            reservation.setStatus(reservationUpdatePatch.getStatus());
+            reservation=reservationService.update(reservation);
+
+            responseBody.put("success", true);
+            responseBody.put("message", "Reservation Successfully Confirmed");
+            responseBody.put("reservation", reservation);
+
+            return new ResponseEntity<>(reservation, httpStatus);
+
+        } else {
+
+            responseBody.put("success", false);
+            responseBody.put("message", "Confirmation Failed");
+            responseBody.put("reservationId", currentReservation);
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(responseBody.toString(), httpStatus);
+
+        }
+    }
+
+
+    //cancel reservation
+
+//    @PatchMapping(value = { "/{reservationId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> cancelReservation(@RequestBody ReservationUpdatePatch reservationUpdatePatch) throws JSONException {
 //
-//    @PatchMapping(value = { "/{passengerId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<?> patchPassenger(@PathVariable long passengerId, @RequestBody PassengerPatchRequest passengerPatchRequest) throws JSONException {
-//
-//        Optional<Reservation> optionalReservation = reservationService.getReservationById(reservationId);
+//        Reservation reservation = reservationService.getReservationById(reservationId);
 //
 //        JSONObject responseBody = new JSONObject();
 //        HttpStatus httpStatus = HttpStatus.OK;
 //
-//        if (optionalPassenger.isPresent()) {
+//        if (reservation!=null) {
 //
-//            Reservation reservation = optionalReservation.get();
-//            reservation.getStatus();
+//            Status reservationStatus= reservation.getStatus();
 //
-//            if(!reservation.getStatus()=="RESERVED")
+//            if(reservationStatus.equals(Status.RESERVED)|| reservationStatus.equals(Status.CONFIRMED))
 //            {
-//
+//                reservation.setStatus(Status.CANCELLED);
 //            }
 //
-//            pa.setFirstName(passengerPatchRequest.getFirstName());
-//            passenger.setLastName(passengerPatchRequest.getLastName());
-//            passenger.setDateOfBirth(passengerPatchRequest.getDateOfBirth());
-//            passenger = passengerService.update(passenger);
+//            reservation.setStatus(reservationUpdatePatch.getStatus());
+//            reservation=reservationService.update(reservation);
 //
 //            responseBody.put("success", true);
-//            responseBody.put("message", "Passenger successfully updated");
-//            responseBody.put("passenger", passenger);
+//            responseBody.put("message", "Reservation Successfully  Cancelled");
+//            responseBody.put("reservation", reservation);
 //
-//            return new ResponseEntity<>(passenger, httpStatus);
+//            return new ResponseEntity<>(reservation, httpStatus);
 //
 //        } else {
 //
 //            responseBody.put("success", false);
-//            responseBody.put("message", "Passenger not found");
-//            responseBody.put("passengerId", passengerId);
+//            responseBody.put("message", "Confirmation Cancelled");
+//            responseBody.put("reservationId", reservationId);
 //            httpStatus = HttpStatus.BAD_REQUEST;
 //            return new ResponseEntity<>(responseBody.toString(), httpStatus);
 //
 //        }
 //    }
-
-
+//
 
 }
