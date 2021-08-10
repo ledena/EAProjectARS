@@ -19,38 +19,26 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
-    @Autowired
-    private PassengerRepository passengerRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public List<Reservation> findAll() {
-        return reservationRepository.findAll();
+        return null;
     }
 
     @Override
-    public Reservation makeReservation(Reservation reservation) {
-        return reservationRepository.save(reservation);
+    public List<Reservation> getReservations(User userId) {
+        return reservationRepository.findAllByUser(userId);
     }
 
     @Override
-    public void cancelResesrvation(int reservationId) {
-        reservationRepository.deleteById(reservationId);
-
+    public Reservation update(Reservation reservation) {
+        return null;
     }
 
     @Override
-    public List<Reservation> getReservations(int usesrId) {
-        return reservationRepository.findAllByUser(usesrId);
-    }
-
-    @Override
-    public Reservation getReservationById(int reservationId) {
+    public Reservation getReservationById(Reservation reservationId) {
         return reservationRepository.findReservationById(reservationId);
     }
-
-
 }
 
 
