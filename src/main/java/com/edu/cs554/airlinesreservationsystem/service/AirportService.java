@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface AirportService {
         List<Airport> findAll();
+        Airport save(Airport airport);
+        Airport update(int id, Airport airport);
+        Airport delete(int id);
 
         }
