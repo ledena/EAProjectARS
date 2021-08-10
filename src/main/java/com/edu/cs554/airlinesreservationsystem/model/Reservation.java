@@ -30,5 +30,11 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
+    public Reservation(String reservationCode, Passenger passenger, LocalDate reservationTime, User reservedBy, Status status) {
+        this.reservationCode = reservationCode;
+        this.passenger = passenger;
+        this.reservationTime = reservationTime;
+        this.reservedBy = reservedBy;
+        this.status = status;
+    }
 }
