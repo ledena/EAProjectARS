@@ -17,9 +17,11 @@ public class Passenger extends Person{
 
     @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate dateOfBirth;
+    private String email;
 
-    public Passenger(String firstName, String lastName, LocalDate dateOfBirth, Address residenceAddress, User user) {
+    public Passenger(String firstName, String lastName, LocalDate dateOfBirth, Address residenceAddress, User user, String email) {
         super(firstName, lastName, residenceAddress, user);
         this.dateOfBirth = dateOfBirth;
+        this.email=email;
     }
 }

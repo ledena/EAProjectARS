@@ -20,6 +20,20 @@ spring:
     user:
       name: service-user
       password: 3b99fef5-8b7d-4984-a3d6-124c26914ed7
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: eaairlinereservation@gmail.com
+    password: cs544project
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mail:
+  smtp:
+    debug: true
 logging:
   file:
     name: /Coding/Logging/${spring.application.name}/log
@@ -27,3 +41,5 @@ logging:
     org:
       springframework:
         web=DEBUG:
+spring-boot-server.name: EMAILSERVER
+email.from: eaairlinereservation@gmail.com
