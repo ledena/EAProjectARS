@@ -12,32 +12,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_AGENT')")
 @RestController
-@RequestMapping(path="/agent")
-@Transactional()
+@RequestMapping(path = "/agent")
 public class AgentController {
 
     @Autowired
     private AgentService agentService;
 
     // Registers or Adds agent to DB
+    @PreAuthorize("permitAll()")
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person createAgent(@RequestBody AgentRegistrationRequest request) {
         return agentService.create(request);
     }
 
-    @GetMapping(value = { "/", "" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/", ""}, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Agent> getAllAgents() {
         return agentService.findAll();
     }
 
-    @GetMapping(value = { "/{agentId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/{agentId}"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAgent(@PathVariable long agentId) throws JSONException {
 
         JSONObject responseBody = new JSONObject();
@@ -54,7 +55,7 @@ public class AgentController {
 
     }
 
-    @PutMapping(value = { "/{agentId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = {"/{agentId}"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateAgent(@PathVariable long agentId, @RequestBody AgentUpdateRequest agentUpdateRequest) throws JSONException {
 
         Optional<Agent> optionalAgent = agentService.findById(agentId);
@@ -88,7 +89,7 @@ public class AgentController {
         }
     }
 
-    @PatchMapping(value = { "/{agentId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = {"/{agentId}"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> patchAgent(@PathVariable long agentId, @RequestBody AgentPatchRequest agentPatchRequest) throws JSONException {
 
         Optional<Agent> optionalAgent = agentService.findById(agentId);
@@ -121,7 +122,7 @@ public class AgentController {
         }
     }
 
-    @DeleteMapping(value = { "/{agentId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = {"/{agentId}"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteAgent(@PathVariable long agentId) throws JSONException {
 
         JSONObject responseBody = new JSONObject();
