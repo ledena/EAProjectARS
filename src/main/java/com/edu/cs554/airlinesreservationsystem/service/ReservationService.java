@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface ReservationService {
     List<Reservation> findAll();
+    void sendReservationReminder();
     public abstract Reservation makeReservation(Reservation reservation);
     public abstract void cancelResesrvation(int reservationId);
     public abstract List<Reservation> getReservations(int userId);
     public abstract Reservation getReservationById(int reservationId);
     
+
 
 }

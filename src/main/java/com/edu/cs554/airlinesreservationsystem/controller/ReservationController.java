@@ -28,10 +28,10 @@ public class ReservationController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping
-    public List<Reservation> findAll() {
-       return reservationService.findAll();
-    }
+//    @GetMapping
+//    public List<Reservation> findAll() {
+//       return reservationService.findAll();
+//    }
 
 
   //list of reservations made by a user a passanger or agent

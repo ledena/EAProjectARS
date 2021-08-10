@@ -54,7 +54,7 @@ public class PassengerServiceImpl implements PassengerService {
 
         user = userService.encodePassword(user);
 
-        Passenger passenger = new Passenger(request.getFirstName(), request.getLastName(), request.getDateOfBirth(), request.getResidenceAddress(), user);
+        Passenger passenger = new Passenger(request.getFirstName(), request.getLastName(), request.getDateOfBirth(), request.getResidenceAddress(), user, request.getEmail());
 
         return passengerRepository.save(passenger);
 
