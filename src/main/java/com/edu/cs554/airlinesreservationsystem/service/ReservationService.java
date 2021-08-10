@@ -13,7 +13,9 @@ public interface ReservationService {
     public abstract void cancelResesrvation(int reservationId);
     public abstract List<Reservation> getReservations(int userId);
     public abstract Reservation getReservationById(int reservationId);
-    
+    Reservation save(ReservationRequest reservation);
+    Reservation update(int id, ReservationRequest reservation);
+    boolean delete(int id);
 
 
 }

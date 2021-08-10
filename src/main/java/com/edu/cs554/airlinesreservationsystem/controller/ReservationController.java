@@ -118,6 +118,20 @@ public class ReservationController {
 //        }
 //    }
 
+    @PostMapping
+    public Reservation save(@RequestBody ReservationRequest reservation){
+        return reservationService.save(reservation);
+    }
+
+    @PatchMapping("{id}")
+    public Reservation update(@PathVariable int id, @RequestBody ReservationRequest reservation){
+        return reservationService.update(id, reservation);
+    }
+
+    @DeleteMapping("{id}")
+    public boolean delete(@PathVariable int id){
+        return reservationService.delete(id);
+    }
 
 
 }
