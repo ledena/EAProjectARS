@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired

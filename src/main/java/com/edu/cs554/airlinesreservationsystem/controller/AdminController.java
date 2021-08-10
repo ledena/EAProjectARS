@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/admin")
-@Transactional()
 public class AdminController {
 
     @Autowired

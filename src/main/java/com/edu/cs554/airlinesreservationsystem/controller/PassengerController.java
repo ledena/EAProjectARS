@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/passenger")
-@Transactional()
 public class PassengerController {
 
     @Autowired
