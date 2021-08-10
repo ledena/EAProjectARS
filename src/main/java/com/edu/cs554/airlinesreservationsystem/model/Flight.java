@@ -35,4 +35,13 @@ public class Flight {
     @ManyToMany
     private List<Reservation> reservations = new ArrayList<>();
 
+    public Flight(String number, int capacity, Airline airline, LocalDateTime departureTime, Airport departureAirport, LocalDateTime arrivalTime, Airport arrivalAirport) {
+        this.number = number;
+        this.capacity = capacity;
+        this.airline = airline;
+        this.departureTime = departureTime;
+        this.departureAirport = departureAirport;
+        this.arrivalTime = arrivalTime;
+        this.arrivalAirport = arrivalAirport;
+    }
 }

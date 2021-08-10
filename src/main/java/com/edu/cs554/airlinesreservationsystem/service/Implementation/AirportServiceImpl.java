@@ -46,9 +46,6 @@ public class AirportServiceImpl implements AirportService {
 
         airportRepository.delete(delAirport);
 
-        /*Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);*/
         return delAirport;
     }
 
