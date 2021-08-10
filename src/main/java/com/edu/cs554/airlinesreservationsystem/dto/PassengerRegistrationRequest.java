@@ -22,4 +22,5 @@ public class PassengerRegistrationRequest {
     private final LocalDate dateOfBirth;
     private final Address residenceAddress;
     private final RegistrationRequest user;
+    private final String email;
 }
