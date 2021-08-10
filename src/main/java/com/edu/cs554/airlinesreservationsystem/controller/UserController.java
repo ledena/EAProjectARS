@@ -21,7 +21,7 @@ public class UserController{
     private LoginService loginService;
 
     // Authenticate user by userName and password , does the same thing as login
-    @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) throws JSONException {
 
         String token = loginService.authenticate(authRequest);
