@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/user")
-@Transactional
 public class UserController{
 
     @Autowired
