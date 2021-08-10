@@ -13,6 +13,8 @@ public interface ReservationService {
     List<Reservation> findAll();
     //public abstract Reservation makeReservation(Reservation reservation);
    // public abstract void cancelResesrvation(int reservationId);
+    void sendReservationReminder();
+
     public abstract List<Reservation> getReservations( User userId);
    Reservation update(Reservation reservation);
    Reservation getReservationById(Reservation reservationId);

@@ -36,6 +36,14 @@ public class ReservationController {
 
 
   //list of reservations made by a user a passanger or agent
+    @GetMapping
+    public List<Reservation> listReservations() {
+        User loggedInUser=new User();
+        loggedInUser=loginService.loggedInUser();
+        int userId=loggedInUser.getId();
+
+        return reservationService.getReservations(loggedInUser);
+    }
 //    @GetMapping
 //    public List<Reservation> listReservations() {
 //        User loggedInUser=new User();

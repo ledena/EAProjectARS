@@ -32,7 +32,7 @@ public class Flight {
     private LocalDateTime arrivalTime;
     @ManyToOne
     private Airport arrivalAirport;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Reservation> reservations = new ArrayList<>();
 
     public Flight(String number, int capacity, Airline airline, LocalDateTime departureTime, Airport departureAirport, LocalDateTime arrivalTime, Airport arrivalAirport) {
