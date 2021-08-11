@@ -37,4 +37,8 @@ public class Reservation {
         this.reservedBy = reservedBy;
         this.status = status;
     }
+
+    public void addFlight(Flight flight){
+        flights.add(flight);
+    }
 }
