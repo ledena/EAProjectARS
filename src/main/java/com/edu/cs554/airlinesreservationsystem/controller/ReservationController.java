@@ -156,12 +156,10 @@ public class ReservationController {
             }
 
             reservation.setStatus(reservationUpdatePatch.getStatus());
-            //generate tickets here
-            //
             reservation=reservationService.update(reservation);
 
             responseBody.put("success", true);
-            responseBody.put("message", "Reservation Successfully Confirmed");
+            responseBody.put("message", "Reservation Successfully Cancelled");
             responseBody.put("reservation", reservation);
 
             return new ResponseEntity<>(reservation, httpStatus);
@@ -169,7 +167,7 @@ public class ReservationController {
         } else {
 
             responseBody.put("success", false);
-            responseBody.put("message", "Confirmation Failed");
+            responseBody.put("message", "Unable to Cancel Reservation");
             responseBody.put("reservationId", currentReservation);
             httpStatus = HttpStatus.BAD_REQUEST;
             return new ResponseEntity<>(responseBody.toString(), httpStatus);
