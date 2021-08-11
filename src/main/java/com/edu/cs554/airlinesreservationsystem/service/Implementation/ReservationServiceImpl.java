@@ -2,9 +2,6 @@ package com.edu.cs554.airlinesreservationsystem.service.Implementation;
 
 import com.edu.cs554.airlinesreservationsystem.dto.EmailRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.Mail;
-import com.edu.cs554.airlinesreservationsystem.model.Admin;
-import com.edu.cs554.airlinesreservationsystem.model.Passenger;
-import com.edu.cs554.airlinesreservationsystem.model.Reservation;
 import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
 import com.edu.cs554.airlinesreservationsystem.exception.ResourceNotFoundException;
 import com.edu.cs554.airlinesreservationsystem.model.*;
@@ -20,9 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +35,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private JmsTemplate jmsTemplate;
-
     @Autowired
     private Mail mail;
 
@@ -51,9 +45,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     private Optional<List<Reservation>> reservations;
 
+
     @Override
     public List<Reservation> findAll() {
-        return reservationRepository.findAll();
+        return null;
     }
 
     @Override
@@ -67,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservations.isPresent()) {
             for(Reservation reservation:reservations.get()){
                 Passenger passenger=reservation.getPassenger();
-                String message="Dear "+passenger.getFirstName()+" "+passenger.getLastName()+"\n\nYour Flight  is in 24 hours!!!\n\nThanks";
+                String message="Dear "+passenger.getFirstName()+" "+passenger.getLastName()+"\n\nYour Flight leaves in 24 hours!!!\n\nThanks";
                 EmailRequest emailRequest=new EmailRequest(emailFrom, passenger.getEmail(), message,"Flight Reservation Reminder" );
                 // Send a message with a POJO - the template reuse the message converter
                 System.out.println("Sending an email message.");
@@ -83,20 +78,22 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    @Override
-    public void cancelResesrvation(int reservationId) {
-        reservationRepository.deleteById(reservationId);
+//    @Override
+//    public void cancelResesrvation(int reservationId) {
+//        reservationRepository.deleteById(reservationId);
+//    }
 
+    public List<Reservation> getReservations(User userId) {
+        return reservationRepository.findAllByReservedBy(userId);
     }
 
     @Override
-    public List<Reservation> getReservations(int userId) {
-        User user= userRepository.findById(userId);
-        return reservationRepository.findAllByReservedBy(user);
+    public Reservation update(Reservation reservation) {
+        return null;
     }
 
     @Override
-    public Reservation getReservationById(int reservationId) {
+    public Reservation getReservationById(Reservation reservationId) {
         return reservationRepository.findReservationById(reservationId);
     }
 
@@ -148,6 +145,7 @@ public class ReservationServiceImpl implements ReservationService {
         } else
             return false;
     }
+
 
 }
 

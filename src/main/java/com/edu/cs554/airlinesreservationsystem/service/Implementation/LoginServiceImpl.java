@@ -5,16 +5,18 @@ import com.edu.cs554.airlinesreservationsystem.model.User;
 import com.edu.cs554.airlinesreservationsystem.repository.UserRepository;
 import com.edu.cs554.airlinesreservationsystem.service.LoginService;
 import com.edu.cs554.airlinesreservationsystem.util.JwtUtil;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
-@AllArgsConstructor
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -27,8 +29,8 @@ public class LoginServiceImpl implements LoginService {
     private UserRepository userRepository;
 
     public String authenticate(AuthRequest request){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
-        return jwtUtil.generateToken(request.getUserName());
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+        return jwtUtil.generateToken(authentication);
     }
 
     public String getLoggedInUser(){

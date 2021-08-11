@@ -1,6 +1,7 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" , "reservations"})
+
 public class Flight {
 
     @Id
@@ -32,7 +35,7 @@ public class Flight {
     private LocalDateTime arrivalTime;
     @ManyToOne
     private Airport arrivalAirport;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Reservation> reservations = new ArrayList<>();
 
     public Flight(String number, int capacity, Airline airline, LocalDateTime departureTime, Airport departureAirport, LocalDateTime arrivalTime, Airport arrivalAirport) {

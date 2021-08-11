@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class AgentServiceImpl implements AgentService {
 
     @Autowired
