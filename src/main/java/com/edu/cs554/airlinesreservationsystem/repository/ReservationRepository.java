@@ -1,5 +1,7 @@
 package com.edu.cs554.airlinesreservationsystem.repository;
 
+import com.edu.cs554.airlinesreservationsystem.dto.PassengerReservationResponseDto;
+import com.edu.cs554.airlinesreservationsystem.model.Passenger;
 import com.edu.cs554.airlinesreservationsystem.model.Reservation;
 import com.edu.cs554.airlinesreservationsystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +24,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     Optional<List<Reservation>> getReservationsForReminder(@Param("date") LocalDateTime date);
     public abstract List<Reservation> findAllByReservedBy(User user);
     public abstract Reservation findReservationById(int reservationId);
+    Reservation findAllByPassengerAndId(Passenger passenger, int id);
+
+    List<Reservation> findAllByPassenger(Passenger passenger);
 }

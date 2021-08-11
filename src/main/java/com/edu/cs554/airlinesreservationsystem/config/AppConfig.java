@@ -37,6 +37,7 @@ public class AppConfig {
         return new HttpHeaders();
     }
 
+    @Bean
     public Mail mail(){ return new Mail();}
 
     @Bean
