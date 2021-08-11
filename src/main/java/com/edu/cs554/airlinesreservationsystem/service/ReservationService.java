@@ -3,6 +3,7 @@ package com.edu.cs554.airlinesreservationsystem.service;
 import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
 import com.edu.cs554.airlinesreservationsystem.model.Airport;
 import com.edu.cs554.airlinesreservationsystem.model.Reservation;
+import com.edu.cs554.airlinesreservationsystem.model.User;
 
 import java.util.List;
 

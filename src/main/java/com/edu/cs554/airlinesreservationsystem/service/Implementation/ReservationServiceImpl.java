@@ -8,6 +8,7 @@ import com.edu.cs554.airlinesreservationsystem.model.Reservation;
 import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
 import com.edu.cs554.airlinesreservationsystem.exception.ResourceNotFoundException;
 import com.edu.cs554.airlinesreservationsystem.model.*;
+import com.edu.cs554.airlinesreservationsystem.repository.FlightRepository;
 import com.edu.cs554.airlinesreservationsystem.repository.PassengerRepository;
 import com.edu.cs554.airlinesreservationsystem.repository.ReservationRepository;
 import com.edu.cs554.airlinesreservationsystem.repository.UserRepository;
@@ -34,6 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
     private PassengerRepository passengerRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private FlightRepository flightRepository;
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -110,6 +113,11 @@ public class ReservationServiceImpl implements ReservationService {
                 newReservation.getReservationTime(),
                 newReservedBy,
                 Status.RESERVED);
+        for (Long flightId : newReservation.getIdflights()){
+            Flight flight = flightRepository.findById(flightId)
+                    .orElseThrow(() -> new ResourceNotFoundException("This flight not exist with id :" + flightId));
+            reservation.addFlight(flight);
+        }
         return reservationRepository.save(reservation);
     }
 
