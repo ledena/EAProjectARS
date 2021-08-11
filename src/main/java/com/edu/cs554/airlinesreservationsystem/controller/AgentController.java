@@ -3,9 +3,13 @@ package com.edu.cs554.airlinesreservationsystem.controller;
 import com.edu.cs554.airlinesreservationsystem.dto.AgentPatchRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.AgentRegistrationRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.AgentUpdateRequest;
+import com.edu.cs554.airlinesreservationsystem.dto.PassengerReservationResponseDto;
 import com.edu.cs554.airlinesreservationsystem.model.Agent;
+import com.edu.cs554.airlinesreservationsystem.model.Passenger;
 import com.edu.cs554.airlinesreservationsystem.model.Person;
+import com.edu.cs554.airlinesreservationsystem.model.User;
 import com.edu.cs554.airlinesreservationsystem.service.AgentService;
+import com.edu.cs554.airlinesreservationsystem.service.LoginService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ public class AgentController {
 
     @Autowired
     private AgentService agentService;
+
+    @Autowired
+    private LoginService loginService;
 
     // Registers or Adds agent to DB
     @PreAuthorize("permitAll()")
@@ -143,6 +150,26 @@ public class AgentController {
 
         }
         return new ResponseEntity<>(responseBody.toString(), httpStatus);
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/reservations")
+    public List<PassengerReservationResponseDto> getPassengerReservations(){
+        User user = loginService.loggedInUser();
+        //Passenger passenger= (Passenger) personRepository.findAllByUser(user);
+        return agentService.findReservationByAgent(user);
+
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/reservations/{id}")
+    public PassengerReservationResponseDto getPassengerReservationById(@PathVariable int id){
+        User user = loginService.loggedInUser();
+       // Passenger passenger= (Passenger) personRepository.findAllByUser(user);
+
+//        return reservationRepository.findAllByPassengerAndId(passenger, id);
+        return agentService.findAgentReservationById(user, id);
+
     }
 
 }
