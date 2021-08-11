@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 @PreAuthorize("permitAll()")
 @RestController
-@RequestMapping(path="/user")
+@RequestMapping(path="user")
 public class UserController{
 
     @Autowired
     private LoginService loginService;
 
     // Authenticate user by userName and password , does the same thing as login
-    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) throws JSONException {
 
         String token = loginService.authenticate(authRequest);

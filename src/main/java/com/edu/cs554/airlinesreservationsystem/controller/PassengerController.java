@@ -2,9 +2,16 @@ package com.edu.cs554.airlinesreservationsystem.controller;
 
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerPatchRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerRegistrationRequest;
+import com.edu.cs554.airlinesreservationsystem.dto.PassengerReservationResponseDto;
 import com.edu.cs554.airlinesreservationsystem.dto.PassengerUpdateRequest;
 import com.edu.cs554.airlinesreservationsystem.model.Passenger;
 import com.edu.cs554.airlinesreservationsystem.model.Person;
+import com.edu.cs554.airlinesreservationsystem.model.Reservation;
+import com.edu.cs554.airlinesreservationsystem.model.User;
+import com.edu.cs554.airlinesreservationsystem.repository.PassengerRepository;
+import com.edu.cs554.airlinesreservationsystem.repository.PersonRepository;
+import com.edu.cs554.airlinesreservationsystem.repository.ReservationRepository;
+import com.edu.cs554.airlinesreservationsystem.service.LoginService;
 import com.edu.cs554.airlinesreservationsystem.service.PassengerService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_PASSENGER','ROLE_AGENT')")
@@ -24,6 +32,15 @@ public class PassengerController {
 
     @Autowired
     private PassengerService passengerService;
+
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     // Registers or Adds passenger to DB
     @PreAuthorize("permitAll()")
@@ -147,4 +164,34 @@ public class PassengerController {
         return new ResponseEntity<>(responseBody.toString(), httpStatus);
     }
 
+//    @PreAuthorize("permitAll()")
+//    @GetMapping("/{id}/reservations")
+//    public Reservation getPassengerReservationById(@PathVariable int id){
+//        User user = loginService.loggedInUser();
+//        Passenger passenger= (Passenger) personRepository.findAllByUser(user);
+//
+//        return reservationRepository.findAllByPassengerAndId(passenger, id);
+//
+//    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/reservations/{id}")
+    public PassengerReservationResponseDto getPassengerReservationById(@PathVariable int id){
+        User user = loginService.loggedInUser();
+        Passenger passenger= (Passenger) personRepository.findAllByUser(user);
+
+//        return reservationRepository.findAllByPassengerAndId(passenger, id);
+        return passengerService.findPassengerReservationById(passenger, id);
+
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/reservations")
+    public List<PassengerReservationResponseDto> getPassengerReservations(){
+        User user = loginService.loggedInUser();
+        Passenger passenger= (Passenger) personRepository.findAllByUser(user);
+
+        return passengerService.findPassengerReservations(passenger);
+
+    }
 }
