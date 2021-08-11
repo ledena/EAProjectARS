@@ -15,9 +15,9 @@ public class ReservationRequest {
     private String reservationCode;
     private long idPassenger;
     private List<Long> idflights=new ArrayList<>();
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate reservationTime;
-    private int idReservedBy;
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //private LocalDate reservationTime;
+    //private int idReservedBy;
     //private List<Ticket> tickets=new ArrayList<>();
     private Status status;
 

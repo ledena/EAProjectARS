@@ -1,5 +1,6 @@
 package com.edu.cs554.airlinesreservationsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" , "tickets"})
 public class Reservation {
     @Id
     @GeneratedValue
@@ -25,7 +27,7 @@ public class Reservation {
     private LocalDate reservationTime;
     @ManyToOne
     private User reservedBy;
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
     private List<Ticket> tickets=new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -40,5 +42,9 @@ public class Reservation {
 
     public void addFlight(Flight flight){
         flights.add(flight);
+    }
+
+    public void addTickets(Ticket ticket){
+        tickets.add(ticket);
     }
 }
