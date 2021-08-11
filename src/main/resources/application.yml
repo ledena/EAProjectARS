@@ -2,9 +2,9 @@ spring:
   application:
     name: sample-springdata-service
   datasource:
-    url: jdbc:mysql://localhost/eaproject
-    username: root
-    password: root
+    url: jdbc:mysql://remotemysql.com:3306/yvfTTvN2ii
+    username: yvfTTvN2ii
+    password: zxvU9WVftF
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -12,6 +12,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
