@@ -2,7 +2,7 @@ spring:
   application:
     name: sample-springdata-service
   datasource:
-    url: jdbc:mysql://localhost/eaproject
+    url: jdbc:mysql://remotemysql.com:3306/yvfTTvN2ii
     username: yvfTTvN2ii
     password: zxvU9WVftF
     driverClassName: com.mysql.cj.jdbc.Driver
