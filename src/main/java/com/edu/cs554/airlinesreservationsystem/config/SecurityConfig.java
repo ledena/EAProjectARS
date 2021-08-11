@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/airports").permitAll()
                 .antMatchers("/airports/{id}").permitAll()
                 .antMatchers("/airlines").permitAll()
+                .antMatchers("/confirm/{currentReservation}").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -1,5 +1,6 @@
 package com.edu.cs554.airlinesreservationsystem.service;
 
+import com.edu.cs554.airlinesreservationsystem.dto.PassengerRegistrationRequest;
 import com.edu.cs554.airlinesreservationsystem.dto.ReservationRequest;
 import com.edu.cs554.airlinesreservationsystem.model.Airport;
 import com.edu.cs554.airlinesreservationsystem.model.Passenger;
@@ -14,10 +15,20 @@ public interface ReservationService {
     //public abstract Reservation makeReservation(Reservation reservation);
    // public abstract void cancelResesrvation(int reservationId);
     void sendReservationReminder();
+    Reservation createReservation(ReservationRequest request);
+    public abstract Reservation makeReservation(Reservation reservation);
+    public abstract void cancelResesrvation(int reservationId);
+    public abstract List<Reservation> getReservations(int userId);
+    public abstract Reservation getReservationById(int reservationId);
+    Reservation save(ReservationRequest reservation);
+    Reservation update(int id, ReservationRequest reservation);
+    boolean delete(int id);
+
 
     public abstract List<Reservation> getReservations( User userId);
    Reservation update(Reservation reservation);
    Reservation getReservationById(Reservation reservationId);
+
 
 
 
