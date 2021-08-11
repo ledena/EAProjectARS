@@ -76,162 +76,37 @@ public class ReservationController {
     }
 
 
- //View list of passengers and reservations made for them “by this agent”
-
-
-
-
-
-
-////    //make reservation
-
     @PostMapping(value = "/makeNewRequest", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reservation makeReservation(@RequestBody ReservationRequest request) {
         return reservationService.createReservation(request);
     }
 
-
-    //view and confirm reservation
-
-    @PatchMapping(value = { "confirm/{currentReservation}" }, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> confirmReservation(@PathVariable Reservation currentReservation,@RequestBody ReservationUpdatePatch reservationUpdatePatch) throws JSONException {
-
-
-        Reservation reservation = reservationService.getReservationById(currentReservation);
-
-        JSONObject responseBody = new JSONObject();
-        HttpStatus httpStatus = HttpStatus.OK;
-
-        if (reservation!=null) {
-
-           Status reservationStatus= reservation.getStatus();
-
-            if(reservationStatus.equals(Status.RESERVED))
-            {
-              reservation.setStatus(Status.CONFIRMED);
-            }
-
-            reservation.setStatus(reservationUpdatePatch.getStatus());
-            //getFlights
-            //generate tickets for each flights
-            //
-            reservation=reservationService.update(reservation);
-
-            responseBody.put("success", true);
-            responseBody.put("message", "Reservation Successfully Cancelled");
-            responseBody.put("reservation", reservation);
-
-            return new ResponseEntity<>(reservation, httpStatus);
-
-        } else {
-
-            responseBody.put("success", false);
-            responseBody.put("message", "Cancellation Failed");
-            responseBody.put("reservationId", currentReservation);
-            httpStatus = HttpStatus.BAD_REQUEST;
-            return new ResponseEntity<>(responseBody.toString(), httpStatus);
-
-        }
-    }
-
-
-    //cancel reservation
-
-    @PatchMapping(value = { "cancel/{currentReservation}" }, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> cancelReservation(@PathVariable Reservation currentReservation,@RequestBody ReservationUpdatePatch reservationUpdatePatch) throws JSONException {
-
-
-        Reservation reservation = reservationService.getReservationById(currentReservation);
-
-        JSONObject responseBody = new JSONObject();
-        HttpStatus httpStatus = HttpStatus.OK;
-
-        if (reservation!=null) {
-
-            Status reservationStatus= reservation.getStatus();
-
-            if(reservationStatus.equals(Status.RESERVED) || reservationStatus.equals(Status.RESERVED))
-            {
-                reservation.setStatus(Status.CANCELLED);
-            }
-
-            reservation.setStatus(reservationUpdatePatch.getStatus());
-            reservation=reservationService.update(reservation);
-
-            responseBody.put("success", true);
-            responseBody.put("message", "Reservation Successfully Cancelled");
-            responseBody.put("reservation", reservation);
-
-            return new ResponseEntity<>(reservation, httpStatus);
-
-        } else {
-
-            responseBody.put("success", false);
-            responseBody.put("message", "Unable to Cancel Reservation");
-            responseBody.put("reservationId", currentReservation);
-            httpStatus = HttpStatus.BAD_REQUEST;
-            return new ResponseEntity<>(responseBody.toString(), httpStatus);
-
-        }
-    }
-
-
-
-//    @PatchMapping(value = { "/{reservationId}" }, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<?> cancelReservation(@RequestBody ReservationUpdatePatch reservationUpdatePatch) throws JSONException {
-//
-//        Reservation reservation = reservationService.getReservationById(reservationId);
-//
-//        JSONObject responseBody = new JSONObject();
-//        HttpStatus httpStatus = HttpStatus.OK;
-//
-//        if (reservation!=null) {
-//
-//            Status reservationStatus= reservation.getStatus();
-//
-//            if(reservationStatus.equals(Status.RESERVED)|| reservationStatus.equals(Status.CONFIRMED))
-//            {
-//                reservation.setStatus(Status.CANCELLED);
-//            }
-//
-//            reservation.setStatus(reservationUpdatePatch.getStatus());
-//            reservation=reservationService.update(reservation);
-//
-//            responseBody.put("success", true);
-//            responseBody.put("message", "Reservation Successfully  Cancelled");
-//            responseBody.put("reservation", reservation);
-//
-//            return new ResponseEntity<>(reservation, httpStatus);
-//
-//        } else {
-//
-//            responseBody.put("success", false);
-//            responseBody.put("message", "Confirmation Cancelled");
-//            responseBody.put("reservationId", reservationId);
-//            httpStatus = HttpStatus.BAD_REQUEST;
-//            return new ResponseEntity<>(responseBody.toString(), httpStatus);
-//
-//        }
-//    }
-
-
     @PostMapping
     public Reservation save(@RequestBody ReservationRequest reservation){
-        return reservationService.save(reservation);
+        User loggedInUser=new User();
+        loggedInUser=loginService.loggedInUser();
+        return reservationService.save(reservation,loggedInUser);
     }
 
     @PatchMapping("{id}")
     public Reservation update(@PathVariable int id, @RequestBody ReservationRequest reservation){
         return reservationService.update(id, reservation);
     }
+    @PatchMapping("cancelReservation/{id}")
+    public Reservation cancel(@PathVariable int id){
+        return reservationService.cancelReservation(id);
+    }
+
+    @PatchMapping("confirmReservation/{id}")
+    public Reservation confirmReservation(@PathVariable int id){
+        System.out.println("####################### in controller");
+        return reservationService.confirmReservation(id);
+    }
 
     @DeleteMapping("{id}")
     public boolean delete(@PathVariable int id){
         return reservationService.delete(id);
     }
-
-
-//
 
 
 }

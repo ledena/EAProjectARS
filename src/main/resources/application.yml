@@ -3,8 +3,8 @@ spring:
     name: sample-springdata-service
   datasource:
     url: jdbc:mysql://localhost/eaproject
-    username: eaproject1
-    password: test1234
+    username: root
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
