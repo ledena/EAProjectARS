@@ -52,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    @Scheduled(fixedRate = 60000)
+//    @Scheduled(fixedRate = 60000)
     public void sendReservationReminder() {
         LocalDateTime date= LocalDateTime.now();
         LocalDateTime tomorrow = date.plusDays(1);
@@ -74,8 +74,29 @@ public class ReservationServiceImpl implements ReservationService {
 
     }
 
+    @Override
+    public Reservation createReservation(ReservationRequest request) {
+        return null;
+    }
+
+
     public Reservation makeReservation(Reservation reservation) {
         return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public void cancelResesrvation(int reservationId) {
+
+    }
+
+    @Override
+    public List<Reservation> getReservations(int userId) {
+        return null;
+    }
+
+    @Override
+    public Reservation getReservationById(int reservationId) {
+        return null;
     }
 
 //    @Override
